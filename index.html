@@ -6,8 +6,13 @@
   <title>Document</title>
 </head>
 <body>
+  <p1>入力モード：答えを入力する<br>
+  確認モード：答えが分かったやつはOKを押して進む。分からないやつはキャンセル押すと答えが出る。<br>
+  テキストのルール：英単語＋半角スペース＋日本語訳＋改行 で一問<br>
+  二回目以降はミスったものだけ問題になる。入力モードの後に確認モードやったりその逆でもそうなる（ページを更新しなければ）<br></p1>
   <button type="button" onclick="input()">入力モード</button>
   <button type="button" onclick="conf()">確認モード</button>
+
 
   <textarea id="text" cols="30" rows="30"></textarea>
   <script>
