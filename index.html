@@ -1,44 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
 <body>
-  <button type="button" onclick="input()">クリックして下さい</button>
+  <button type="button" onclick="input()">入力モード</button>
+  <button type="button" onclick="conf()">確認モード</button>
+
   <textarea id="text" cols="30" rows="30"></textarea>
   <script>
+      var x=0;
+      var words=[],ans=[];
    function input(){
-    var words=[],ans=[],i,line=[];
-    var all=document.getElementById('text').value.replace(/\r\n|\r/g, "\n");
-    var lines=all.split('\n');
-    for(i=0;i<lines.length;i++){
-      line=lines[i].split(" ");
-      words[i]=line[0];
-      ans[i]=line[1];
-    }
-    alert("単語:"+words);
-    alert("答え:"+ans);
 
+    // インプット
+    if(x==0){
+      alert('最初だね！');
+      var i,line=[];
+      var all=document.getElementById('text').value.replace(/\r\n|\r/g, "\n");
+      var lines=all.split('\n');
+      for(i=0;i<lines.length;i++){
+        line=lines[i].split(" ");
+        words[i]=line[0];
+        ans[i]=line[1];
+      }
+      
+    alert("単語:"+words+"\n"+"答え:"+ans);
+    }
 
     var point=0,total=0,missword=[],j=0;
-    for(i=0;i<lines.length;++i){
-      answer=prompt(words[i]);
+
+    // クイズ
+    for(i=0;i<words.length;++i){
+      var answer=prompt(words[i]);
       total=total+1;
       if(answer==ans[i]){
         point=point+1;
       }else{
         missword[j]="\n"+words[i]+" "+ans[i];
+        words[j]=words[i];
+        ans[j]=ans[i];
         j=j+1;
       }
     }
 
+    // 結果
       alert(total+"問中"+point+"問正解（正答率"+(point/total)*100+"％)");
       alert("間違った問題\n"+missword);
-    
-    
+      words.splice(total-point, point);
+      ans.splice(total-point,point);
+      x=1;
+   } 
+
+   function conf(){
+
+    // インプット
+    if(x==0){
+      alert('最初だねえ');
+      var i,line=[];
+      var all=document.getElementById('text').value.replace(/\r\n|\r/g, "\n");
+      var lines=all.split('\n');
+      for(i=0;i<lines.length;i++){
+        line=lines[i].split(" ");
+        words[i]=line[0];
+        ans[i]=line[1];
+      }
+      
+    alert("単語:"+words+"\n"+"答え:"+ans);
+    }
+
+    var point=0,total=0,missword=[],j=0;
+
+    // クイズ
+    for(i=0;i<words.length;++i){
+      answer=confirm(words[i]);
+      total=total+1;
+      if(answer==true){
+        point=point+1;
+      }else{
+        prompt(words[i]+"は「"+ans[i]+"」です");
+        missword[j]="\n"+words[i]+" "+ans[i];
+        words[j]=words[i];
+        ans[j]=ans[i];
+        j=j+1;
+      }
+    }
+
+    // 結果
+      alert(total+"問中"+point+"問正解（正答率"+(point/total)*100+"％)");
+      alert("間違った問題\n"+missword);
+      words.splice(total-point, point);
+      ans.splice(total-point,point);
+      x=1;
+
+
+
+
    }
+
+
+
+
+
 
 
   </script>
